@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.custom.i18n.resources" value="applicationResource" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+	<constant name="struts.multipart.maxSize" value="10701096" />
+
+	<package name="erp-default" namespace="/" extends="json-default">
+		<interceptors>
+			<interceptor name="userInterceptor" class="com.erp.interceptor.UserInterceptor" />
+			<interceptor-stack name="mystack">
+				<interceptor-ref name="userInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mystack"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/login</result>
+		</global-results>
+	</package>
+
+	<package name="index" namespace="/" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="reg" class="homeAction" method="reg">
+			<result name="input">/reg.jsp</result>
+			<result name="error">/reg.jsp</result>
+			<result name="success" type="redirect">/login</result>
+		</action>
+		<action name="login" class="homeAction" method="login">
+			<result name="input">/login.jsp</result>
+			<result name="error">/login.jsp</result>
+			<result name="success" type="redirect">/index</result>
+		</action>
+		<action name="password" class="homeAction" method="password">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="logout" class="homeAction" method="logout">
+			<result name="success" type="redirect">/index</result>
+		</action>
+		<action name="index" class="homeAction" method="index">
+			<result>/index.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+	</package>
+
+	<package name="ad" namespace="/ad" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="listAd" class="adAction" method="listAd">
+			<result>/ad/listAd.jsp</result>
+		</action>
+		<action name="saveAd" class="adAction" method="saveAd">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryAd" class="adAction" method="destoryAd">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="listAdDetail" class="adAction" method="listAdDetail">
+			<result>/ad/listAdDetail.jsp</result>
+		</action>
+		<action name="submitContent" class="adAction" method="submitContent">
+			<result type="redirect">/ad/listAdDetail?ad.id=${ad.id}</result>
+		</action>
+		<action name="download" class="adAction" method="download">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileFileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="institution" namespace="/institution" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="listInstitution" class="institutionAction"
+			method="listInstitution">
+			<result>/institution/listInstitution.jsp</result>
+		</action>
+		<action name="saveInstitution" class="institutionAction"
+			method="saveInstitution">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryInstitution" class="institutionAction"
+			method="destoryInstitution">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="listInstitutionDetail" class="institutionAction"
+			method="listInstitutionDetail">
+			<result>/institution/listInstitutionDetail.jsp</result>
+		</action>
+		<action name="submitContent" class="institutionAction" method="submitContent">
+			<result type="redirect">/institution/listInstitutionDetail?institution.id=${institution.id}
+			</result>
+		</action>
+		<action name="download" class="institutionAction" method="download">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileFileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="knowledge" namespace="/knowledge" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="listKnowledge" class="knowledgeAction" method="listKnowledge">
+			<result>/knowledge/listKnowledge.jsp</result>
+		</action>
+		<action name="saveKnowledge" class="knowledgeAction" method="saveKnowledge">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryKnowledge" class="knowledgeAction" method="destoryKnowledge">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="listKnowledgeDetail" class="knowledgeAction"
+			method="listKnowledgeDetail">
+			<result>/knowledge/listKnowledgeDetail.jsp</result>
+		</action>
+		<action name="submitContent" class="knowledgeAction" method="submitContent">
+			<result type="redirect">/knowledge/listKnowledgeDetail?knowledge.id=${knowledge.id}
+			</result>
+		</action>
+		<action name="download" class="knowledgeAction" method="download">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileFileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="meeting" namespace="/meeting" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="listMeeting" class="meetingAction" method="listMeeting">
+			<result>/meeting/listMeeting.jsp</result>
+		</action>
+		<action name="saveMeeting" class="meetingAction" method="saveMeeting">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryMeeting" class="meetingAction" method="destoryMeeting">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="listMeetingDetail" class="meetingAction" method="listMeetingDetail">
+			<result>/meeting/listMeetingDetail.jsp</result>
+		</action>
+		<action name="submitContent" class="meetingAction" method="submitContent">
+			<result type="redirect">/meeting/listMeetingDetail?meeting.id=${meeting.id}
+			</result>
+		</action>
+		<action name="download" class="meetingAction" method="download">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileFileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="plan" namespace="/plan" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="listPlan" class="planAction" method="listPlan">
+			<result>/plan/listPlan.jsp</result>
+		</action>
+		<action name="savePlan" class="planAction" method="savePlan">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryPlan" class="planAction" method="destoryPlan">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="listPlanDetail" class="planAction" method="listPlanDetail">
+			<result>/plan/listPlanDetail.jsp</result>
+		</action>
+		<action name="submitContent" class="planAction" method="submitContent">
+			<result type="redirect">/plan/listPlanDetail?plan.id=${plan.id}</result>
+		</action>
+		<action name="download" class="planAction" method="download">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileFileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="report" namespace="/report" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="listReport" class="reportAction" method="listReport">
+			<result>/report/listReport.jsp</result>
+		</action>
+		<action name="saveReport" class="reportAction" method="saveReport">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryReport" class="reportAction" method="destoryReport">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="listReportDetail" class="reportAction" method="listReportDetail">
+			<result>/report/listReportDetail.jsp</result>
+		</action>
+		<action name="submitContent" class="reportAction" method="submitContent">
+			<result type="redirect">/report/listReportDetail?report.id=${report.id}
+			</result>
+		</action>
+	</package>
+
+
+
+	<package name="user" namespace="/user" extends="erp-default">
+		<action name="listUser" class="userAction" method="listUser">
+			<result>/user/listUser.jsp</result>
+		</action>
+		<action name="saveUser" class="userAction" method="saveUser">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryUser" class="userAction" method="destoryUser">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+</struts>

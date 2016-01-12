@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+		<!-- Database connection settings -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost/erp_stock</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">root</property>
+
+		<!-- JDBC connection pool (use the built-in) -->
+		<!--<property name="connection.pool_size">1</property>-->
+
+		<property name="hibernate.query.substitutions">true 1, false 0</property>
+
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+		<!-- Disable the second-level cache  -->
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
+
+		<!-- Drop and re-create the database schema on startup -->
+		<property name="hbm2ddl.auto">update</property>
+
+		<mapping class="com.erp.model.User" />
+		<mapping class="com.erp.model.Product" />
+		<mapping class="com.erp.model.InApply" />
+		<mapping class="com.erp.model.InApplyDetail" />
+		<mapping class="com.erp.model.OutApply" />
+		<mapping class="com.erp.model.OutApplyDetail" />
+		<mapping class="com.erp.model.InInternal" />
+		<mapping class="com.erp.model.InInternalDetail" />
+		<mapping class="com.erp.model.OutInternal" />
+		<mapping class="com.erp.model.OutInternalDetail" />
+		<mapping class="com.erp.model.InStock" />
+		<mapping class="com.erp.model.InStockDetail" />
+		<mapping class="com.erp.model.OutStock" />
+		<mapping class="com.erp.model.OutStockDetail" />
+		<mapping class="com.erp.model.SafeStock" />
+		<mapping class="com.erp.model.SafeStockDetail" />
+
+	</session-factory>
+
+</hibernate-configuration>

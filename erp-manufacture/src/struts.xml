@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.custom.i18n.resources" value="applicationResource" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+	<constant name="struts.multipart.maxSize" value="10701096" />
+
+	<package name="erp-default" namespace="/" extends="json-default">
+		<interceptors>
+			<interceptor name="userInterceptor" class="com.erp.interceptor.UserInterceptor" />
+			<interceptor-stack name="mystack">
+				<interceptor-ref name="userInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mystack"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/login</result>
+		</global-results>
+	</package>
+
+	<package name="index" namespace="/" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="reg" class="homeAction" method="reg">
+			<result name="input">/reg.jsp</result>
+			<result name="error">/reg.jsp</result>
+			<result name="success" type="redirect">/login</result>
+		</action>
+		<action name="login" class="homeAction" method="login">
+			<result name="input">/login.jsp</result>
+			<result name="error">/login.jsp</result>
+			<result name="success" type="redirect">/index</result>
+		</action>
+		<action name="password" class="homeAction" method="password">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="logout" class="homeAction" method="logout">
+			<result name="success" type="redirect">/index</result>
+		</action>
+		<action name="index" class="homeAction" method="index">
+			<result>/index.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+	</package>
+
+	<package name="process" namespace="/process" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="listProcess" class="processAction" method="listProcess">
+			<result>/process/listProcess.jsp</result>
+		</action>
+		<action name="saveProcess" class="processAction" method="saveProcess">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryProcess" class="processAction" method="destoryProcess">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="listProcessDetail" class="processAction" method="listProcessDetail">
+			<result>/process/listProcessDetail.jsp</result>
+		</action>
+		<action name="saveProcessDetail" class="processAction" method="saveProcessDetail">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryProcessDetail" class="processAction"
+			method="destoryProcessDetail">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="materiel" namespace="/materiel" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="listMateriel" class="materielAction" method="listMateriel">
+			<result>/materiel/listMateriel.jsp</result>
+		</action>
+		<action name="saveMateriel" class="materielAction" method="saveMateriel">
+			<result type="redirect">/materiel/showMateriel?materiel.id=${materiel.id}
+			</result>
+		</action>
+		<action name="showMateriel" class="materielAction" method="showMateriel">
+			<result>/materiel/showMateriel.jsp</result>
+		</action>
+		<action name="saveMaterielDetail" class="materielAction"
+			method="saveMaterielDetail">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryMateriel" class="materielAction" method="destoryMateriel">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="plan" namespace="/plan" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="listPlan" class="planAction" method="listPlan">
+			<result>/plan/listPlan.jsp</result>
+		</action>
+		<action name="savePlan" class="planAction" method="savePlan">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryPlan" class="planAction" method="destoryPlan">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="listPlanDetail" class="planAction" method="listPlanDetail">
+			<result>/plan/listPlanDetail.jsp</result>
+		</action>
+		<action name="savePlanDetail" class="planAction" method="savePlanDetail">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryPlanDetail" class="planAction" method="destoryPlanDetail">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="dispatch" namespace="/dispatch" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="listDispatch" class="dispatchAction" method="listDispatch">
+			<result>/dispatch/listDispatch.jsp</result>
+		</action>
+		<action name="saveDispatch" class="dispatchAction" method="saveDispatch">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="showDispatch" class="dispatchAction" method="showDispatch">
+			<result>/dispatch/showDispatch.jsp</result>
+		</action>
+		<action name="updateDispatch" class="dispatchAction" method="updateDispatch">
+			<result type="redirect">/dispatch/showDispatch?dispatch.id=${dispatch.id}
+			</result>
+		</action>
+		<action name="destoryDispatch" class="dispatchAction" method="destoryDispatch">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="realcost" namespace="/realCost" extends="erp-default">
+		<default-action-ref name="index" />
+		<action name="listRealCost" class="realCostAction" method="listRealCost">
+			<result>/realcost/listRealCost.jsp</result>
+		</action>
+		<action name="saveRealCost" class="realCostAction" method="saveRealCost">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryRealCost" class="realCostAction" method="destoryRealCost">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="user" namespace="/user" extends="erp-default">
+		<action name="listUser" class="userAction" method="listUser">
+			<result>/user/listUser.jsp</result>
+		</action>
+		<action name="saveUser" class="userAction" method="saveUser">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="destoryUser" class="userAction" method="destoryUser">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+</struts>
